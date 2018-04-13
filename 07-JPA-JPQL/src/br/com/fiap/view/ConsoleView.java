@@ -1,5 +1,8 @@
 package br.com.fiap.view;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,10 +12,12 @@ import br.com.fiap.dao.CidadeDAO;
 import br.com.fiap.dao.ClienteDAO;
 import br.com.fiap.dao.EntityManagerFactorySingleton;
 import br.com.fiap.dao.PacoteDAO;
+import br.com.fiap.dao.ReservaDAO;
 import br.com.fiap.dao.TransporteDAO;
 import br.com.fiap.dao.impl.CidadeDAOImpl;
 import br.com.fiap.dao.impl.ClienteDAOImpl;
 import br.com.fiap.dao.impl.PacoteDAOImpl;
+import br.com.fiap.dao.impl.ReservaDAOImpl;
 import br.com.fiap.dao.impl.TransporteDAOImpl;
 import br.com.fiap.entity.Cidade;
 import br.com.fiap.entity.Cliente;
@@ -75,6 +80,44 @@ public class ConsoleView {
 		for (Cliente cliente : clientes) {
 			System.out.println(cliente.getNome());
 		}
+		
+		//Cria as datas para a pesquisa
+		Calendar inicio = new GregorianCalendar(2015,Calendar.MAY,1);
+		Calendar fim = new GregorianCalendar(2018,Calendar.MAY,2);
+		//Pesquisa os pacotes por datas
+		pacotes = pacoteDao.buscarPorDatas(inicio, fim);
+		System.out.println("BUSCAR PACOTES POR DATAS");
+		//Exibe os pacotes
+		for (Pacote pacote : pacotes) {
+			System.out.println(pacote.getDescricao());
+		}
+		
+		//Pesquisa os clientes
+		/* clientes = clienteDao.buscar("a", "a");
+		System.out.println("BUSCAR CLIENTE POR NOME E CIDADE");
+		//Exibir os clientes
+		for (Cliente cliente : clientes) {
+			System.out.println(cliente.getNome() + " " +
+					cliente.getEndereco().getCidade().getNome());
+		} */
+		//Parametro para pesquisar os clientes por estado
+		List<String> estados = new ArrayList<>();
+		estados.add("SP");
+		estados.add("PR");
+		//Pesquisar os clientes
+		clientes = clienteDao.buscarPorEstados(estados);
+		System.out.println("BUSCAR CLIENTE POR ESTADOS");
+		//Exibir os clientes
+		for (Cliente cliente : clientes) {
+			System.out.println(cliente.getNome() + " " +
+					cliente.getEndereco().getCidade().getUf());
+		}
+		
+		
+		//Criar ReservaDAO
+		ReservaDAO reservaDAO = new ReservaDAOImpl(em);
+		
+		System.out.println("Reservas: " + reservaDAO.contarQuantidade());
 		
 		em.close();
 		fabrica.close();

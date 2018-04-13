@@ -33,7 +33,7 @@ public class ClienteDAOImpl extends GenericDAOImpl<Cliente,Integer> implements C
 	@Override
 	public List<Cliente> buscar(String nome, String cidade){
 		
-		return em.createQuery("from Cliente c where c.nome like :n and e.endereco.cidade.nome like :C", Cliente.class)
+		return em.createQuery("from Cliente c where upper(c.nome) like :n and e.endereco.cidade.nome like upper(:C)", Cliente.class)
 				.setParameter("n", "%" + nome + "%")
 				.setParameter("C", cidade)
 				.getResultList();

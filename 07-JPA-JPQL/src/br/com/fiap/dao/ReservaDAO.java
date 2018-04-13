@@ -4,4 +4,5 @@ import br.com.fiap.entity.Reserva;
 
 public interface ReservaDAO extends GenericDAO<Reserva,Integer>{
 
+	long contarQuantidade();
 }

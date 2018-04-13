@@ -11,4 +11,9 @@ public class ReservaDAOImpl extends GenericDAOImpl<Reserva,Integer> implements R
 		super(entityManager);
 	}
 
+	@Override
+	public long contarQuantidade() {		
+		return em.createQuery("select count(r) from Reserva r ", Long.class).getSingleResult();
+	}
+
 }
