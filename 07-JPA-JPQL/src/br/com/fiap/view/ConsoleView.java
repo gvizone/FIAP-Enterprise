@@ -111,13 +111,15 @@ public class ConsoleView {
 		for (Cliente cliente : clientes) {
 			System.out.println(cliente.getNome() + " " +
 					cliente.getEndereco().getCidade().getUf());
-		}
-		
-		
+		}		
 		//Criar ReservaDAO
-		ReservaDAO reservaDAO = new ReservaDAOImpl(em);
-		
+		ReservaDAO reservaDAO = new ReservaDAOImpl(em);		
 		System.out.println("Reservas: " + reservaDAO.contarQuantidade());
+		
+		//Exibir média dos preços dos pacotes
+		System.out.println("Preços: " + pacoteDao.calcularMediaPreco());
+		
+		
 		
 		em.close();
 		fabrica.close();
