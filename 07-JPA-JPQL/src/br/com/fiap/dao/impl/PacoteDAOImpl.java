@@ -32,9 +32,24 @@ public class PacoteDAOImpl extends GenericDAOImpl<Pacote,Integer> implements Pac
 
 	@Override
 	public double calcularMediaPreco() {
-		return em.createQuery("select avg(p.preco) from Pacote p", Double.class).getSingleResult();
+		return 0; //em.createQuery("select avg(p.preco) from Pacote p", Double.class).getSingleResult();
 	}
 
+	@Override
+	public long contarPorTransporte() {
+		return em.createNamedQuery("Pacote.contarPorTansporte", Long.class).getSingleResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Pacote> buscarPoDestino(String destino) {
+		return em.createNamedQuery("select * from jpa_t_pacote "
+				+ "where ds_pacote like :d", Pacote.class)
+				.setParameter("d", "%"+destino+"%")
+				.getResultList();
+	}
+
+	
 }
 
 

@@ -14,4 +14,7 @@ public interface PacoteDAO extends GenericDAO<Pacote,Integer>{
 	
 	double calcularMediaPreco();
 	
+	long contarPorTransporte();
+	
+	List<Pacote> buscarPoDestino(String destino);
 }

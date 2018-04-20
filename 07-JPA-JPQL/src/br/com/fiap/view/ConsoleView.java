@@ -117,10 +117,24 @@ public class ConsoleView {
 		System.out.println("Reservas: " + reservaDAO.contarQuantidade());
 		
 		//Exibir média dos preços dos pacotes
-		System.out.println("Preços: " + pacoteDao.calcularMediaPreco());
+		//System.out.println("Preços: " + pacoteDao.calcularMediaPreco());
+		
+		//Exibir a quantidade de pacotes com transporte
+		System.out.println("Pacotes com transportes: " + pacoteDao.contarPorTransporte());
+		
+		//Exibir a quantidade de reserva dentro de um periodo
+		Calendar inicio1 = new GregorianCalendar(201, Calendar.JANUARY, 1);
+		System.out.println("Reservas: " + reservaDAO.contarPorDatas(inicio1, fim));
+		
+		//Exibir a quantidade de reserva de um estado
+		System.out.println("Reservas: " + reservaDAO.contarPorEstadoClinte("PR"));
 		
 		
-		
+		pacotes = pacoteDao.buscarPoDestino("a");
+		System.out.println("BUSCAR POR DESTINO");
+		pacotes.forEach(pacote -> {
+			System.out.println(pacote.getDescricao());
+		});
 		em.close();
 		fabrica.close();
 	}
