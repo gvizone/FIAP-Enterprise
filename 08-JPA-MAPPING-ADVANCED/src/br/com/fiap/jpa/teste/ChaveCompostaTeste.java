@@ -18,7 +18,7 @@ public class ChaveCompostaTeste {
 
 	public static void main(String[] args) {
 		
-		Medico medico = new Medico(325423, "Jose das Neves", "Pediatra");
+		Medico medico = new Medico(325423, "Jose das Neves", "Pediatra", 20000, 1356547);
 		
 		Paciente paciente = new Paciente("Joaozinho", new GregorianCalendar(21, Calendar.AUGUST, 2010));
 		
