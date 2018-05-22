@@ -2,6 +2,7 @@ package br.com.fiap.nac.entity;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,11 +33,11 @@ public class Locacao {
 	@Temporal(TemporalType.DATE)
 	private Calendar dataFim;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="CLIENTE_CODIGO")
 	private Cliente cliente;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="APARTAMENTO_CODIGO")
 	private Apartamento apartamento;
 

@@ -29,13 +29,15 @@ public class GenericDAOImpl<T,K> implements GenericDAO<T, K>{
 
 	@Override
 	public void alterar(T entity) {
-
+		em.merge(entity);
 	}
 
 	@Override
 	public void remover(K codigo) throws IdNotFoundException {
-
-		
+		T entidade = pesquisar(codigo);
+		if(entidade == null)
+			throw new IdNotFoundException();
+		em.remove(entidade);		
 	}
 
 	@Override
@@ -43,9 +45,11 @@ public class GenericDAOImpl<T,K> implements GenericDAO<T, K>{
 		return em.find(classe, codigo);
 	}
 	
+	@Override
 	public void salvar() throws DBException{
 		try {
-			
+			em.getTransaction().begin();
+			em.getTransaction().commit();
 		}catch(Exception e){
 			if (em.getTransaction().isActive())
 				em.getTransaction().rollback();
